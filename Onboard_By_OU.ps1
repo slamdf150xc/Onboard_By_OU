@@ -21,6 +21,7 @@
 
 	VERSION HISTORY:
 	v0.1 - Initial release lab tested
+	v0.2 - Added API call to delete all pending accounts
 #>
 ##########################################################################################
 
