@@ -172,15 +172,23 @@ function OnBoardAccounts {
 	}
 }
 
+function Delete-DiscoveredAccounts {
+	try {
+		Invoke-RestMethod -Uri "$baseURI/PasswordVault/api/DiscoveredAccounts" -Method Delete -Headers $header -ContentType 'application/json'
+	} catch {
+		Write-Log $MyInvocation.MyCommand $_.Exception.Message $_ "error" $false $false
+	}
+}
+
 function Write-Log {
     param
     (
-		[string]$function,
+	[string]$function,
         [string]$message,
-		[System.Management.Automation.ErrorRecord]$errorObj,
+	[System.Management.Automation.ErrorRecord]$errorObj,
         [string]$type,
-		[bool]$logoff,
-		[bool]$quitScript,
+	[bool]$logoff,
+	[bool]$quitScript,
         [string]$logFolderPath = "$PSScriptRoot\Logs",
         [string]$logFilePrefix = 'Bulk_UO-Onboarding'
     )
@@ -251,5 +259,6 @@ if ($login) {
 }
 
 OnBoardAccounts
+Delete-DiscoveredAccounts
 EPVLogoff
 ########################### END SCRIPT ###################################################
